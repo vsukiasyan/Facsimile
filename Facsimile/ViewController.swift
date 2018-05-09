@@ -17,11 +17,40 @@ class ViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var signupOrLoginBtn: UIButton!
     @IBOutlet weak var switchLoginModeBtn: UIButton!
+    @IBOutlet weak var backgroundImg: UIImageView!
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backgroundImg.addBlueEffect()
+        
+        email.layer.borderWidth = 1.0
+        email.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        password.layer.borderWidth = 1.0
+        password.layer.borderColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        var emailFrameRect = email.frame
+        emailFrameRect.size.height = 45
+        email.frame = emailFrameRect
+
+        var passFrameRect = password.frame
+        passFrameRect.size.height = 45
+        password.frame = passFrameRect
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if PFUser.current() != nil {
+            performSegue(withIdentifier: "showUserTable", sender: self)
+        }
         
         
         
@@ -53,6 +82,7 @@ class ViewController: UIViewController {
                         self.displayAlert(title: "Could not sign you up.", message: error.localizedDescription)
                     } else {
                         print("Signed up")
+                        self.performSegue(withIdentifier: "showUserTable", sender: self)
                     }
                 })
             } else {
@@ -62,6 +92,7 @@ class ViewController: UIViewController {
                     
                     if user != nil {
                         print("Login successful")
+                        self.performSegue(withIdentifier: "showUserTable", sender: self)
                     } else {
                         var errorText = "Unknown error, please try again."
                         if let error = error {
@@ -96,11 +127,36 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
+    
 }
+
+
+extension UIImageView {
+    func addBlueEffect() {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        vibrancyEffectView.frame = self.bounds
+        
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.contentView.addSubview(vibrancyEffectView)
+        self.addSubview(blurEffectView)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
