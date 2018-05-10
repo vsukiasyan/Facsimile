@@ -37,6 +37,9 @@ class ViewController: UIViewController {
         passFrameRect.size.height = 45
         password.frame = passFrameRect
         
+        email.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
