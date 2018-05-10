@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     var signupModeActive = true
     
