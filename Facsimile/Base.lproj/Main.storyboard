@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -145,11 +146,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Users" id="4tm-Z1-6xZ">
-                        <barButtonItem key="leftBarButtonItem" title="Post" id="OnK-L9-qi1">
-                            <connections>
-                                <segue destination="gQT-Yv-epg" kind="show" id="isU-AP-GJT"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem title="Post" id="OnK-L9-qi1">
+                                <connections>
+                                    <segue destination="gQT-Yv-epg" kind="show" id="isU-AP-GJT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Feed" id="Epy-c5-FN9">
+                                <connections>
+                                    <segue destination="go8-bZ-TMt" kind="show" id="Fof-Tb-is0"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="KdW-D7-Gb3">
                             <connections>
                                 <action selector="logoutUser:" destination="SvK-q0-Ujw" id="nLG-hE-vrc"/>
@@ -163,6 +171,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vjh-mO-bUs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1922" y="146"/>
+        </scene>
+        <!--Your Feed-->
+        <scene sceneID="6k7-DG-gU7">
+            <objects>
+                <tableViewController title="Your Feed" id="go8-bZ-TMt" customClass="FeedTableViewController" customModule="Facsimile" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="290" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bvv-xg-Ya6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="290" id="sdI-Wa-4N8" customClass="FeedTableViewCell" customModule="Facsimile" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="290"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sdI-Wa-4N8" id="gjg-he-1hi">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="289.66666666666669"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Yx-iJ-zAL">
+                                            <rect key="frame" x="74" y="16" width="240" height="128"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7b7-dq-Dva">
+                                            <rect key="frame" x="45" y="249" width="301" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ynS-4v-Wlr">
+                                            <rect key="frame" x="45" y="220" width="301" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="comment" destination="ynS-4v-Wlr" id="F8u-jS-UXy"/>
+                                    <outlet property="postedImage" destination="4Yx-iJ-zAL" id="iqY-yc-uEk"/>
+                                    <outlet property="userInfo" destination="7b7-dq-Dva" id="mc4-Vw-9HS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="go8-bZ-TMt" id="40c-D4-NZV"/>
+                            <outlet property="delegate" destination="go8-bZ-TMt" id="iqN-NC-tWU"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ivy-MP-0BU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2744.8000000000002" y="518.7192118226601"/>
         </scene>
         <!--Post Image-->
         <scene sceneID="czt-Hi-UIJ">
@@ -211,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ham-ld-Xam" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2752.8000000000002" y="145.56650246305421"/>
+            <point key="canvasLocation" x="2745" y="-140"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="d9R-h2-BYu">
